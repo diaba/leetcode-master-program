@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3-Week LeetCode Mastery | Week 1: Linear Patterns</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <nav aria-label="Main Navigation">
+        <div class="nav-container">
+            <span class="logo">LC Mastery 2025</span>
+            <div class="progress-wrapper">
+                <label for="mastery-progress">Overall Progress:</label>
+                <progress id="mastery-progress" value="0" max="100"></progress>
+                <span id="progress-text" aria-live="polite">0%</span>
+            </div>
+        </div>
+    </nav>
+
+    <main id="main-content">
+        <header>
+            <h1>Week 1: Linear Patterns</h1>
+            <p>Master <strong>Sliding Window</strong>, <strong>Two Pointers</strong>, and <strong>Prefix Sum</strong>
+                patterns.</p>
+        </header>
+
+        <!-- Pattern Quick Reference -->
+        <section class="pattern-grid" aria-labelledby="ref-heading">
+            <h2 id="ref-heading">Pattern Quick Reference</h2>
+            <div class="cards-container">
+                <article class="pattern-card">
+                    <h3>Sliding Window</h3>
+                    <p>Best for sub-arrays or substrings. Reduces O(n²) to O(n).</p>
+                    <footer>Time: O(n) | Space: O(1)</footer>
+                </article>
+                <article class="pattern-card">
+                    <h3>Two Pointers</h3>
+                    <p>Scanning sorted arrays for pairs or triplets.</p>
+                    <footer>Time: O(n) | Space: O(1)</footer>
+                </article>
+            </div>
+        </section>
+
+        <!-- Interactive Visual Lab -->
+        <section class="lab-section" aria-labelledby="lab-heading">
+            <h2 id="lab-heading">Hands-on Lab: Sliding Window</h2>
+            <p>Visualize the <em>Maximum Sum Subarray (K=3)</em> logic.</p>
+
+            <div class="lab-container">
+                <div class="visualizer">
+                    <div id="array-display" class="array-container" role="img"
+                        aria-label="Visualization of an integer array with a sliding window">
+                        <!-- JS injected elements -->
+                    </div>
+                    <div class="controls">
+                        <button id="prev-btn" aria-label="Previous step">Back</button>
+                        <button id="next-btn" class="btn-primary">Next Step</button>
+                    </div>
+                </div>
+
+                <div class="code-execution">
+                    <pre><code class="java-code">
+<span class="keyword">for</span> (<span class="keyword">int</span> i = k; i < n; i++) {
+    <span class="highlight">windowSum += nums[i] - nums[i-k];</span>
+    maxSum = Math.max(maxSum, windowSum);
+}
+                    </code></pre>
+                    <div id="step-description" class="step-log" aria-live="polite">Click 'Next Step' to begin
+                        simulation.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Practice Exercises -->
+        <section class="practice-list">
+            <h2>Week 1 Exercises</h2>
+            <ul id="exercise-list">
+                <!-- JS injected items -->
+            </ul>
+        </section>
+    </main>
+    <script src="script.js"></script>
+</body>
+
+</html>

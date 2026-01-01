@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Deque (Monotonic Queue) in Java — Grandma-Friendly Tutorial</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background: #fafafa;
+            color: #222;
+        }
+
+        header {
+            background: #222;
+            color: #fff;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        main {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 1.5rem;
+            background: #fff;
+        }
+
+        h1,
+        h2,
+        h3 {
+            color: #222;
+        }
+
+        h1 {
+            margin-top: 0;
+        }
+
+        code {
+            font-family: "Fira Code", Menlo, Consolas, Monaco, monospace;
+            background: #f5f5f5;
+            padding: 0.15em 0.3em;
+            border-radius: 3px;
+            font-size: 0.95em;
+        }
+
+        pre {
+            background: #111;
+            color: #f5f5f5;
+            padding: 1rem;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-size: 0.9rem;
+        }
+
+        pre code {
+            background: transparent;
+            padding: 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            font-size: 0.95rem;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 0.5rem 0.75rem;
+            text-align: left;
+        }
+
+        th {
+            background: #f3f3f3;
+        }
+
+        .note {
+            background: #e8f4ff;
+            border-left: 4px solid #1e88e5;
+            padding: 0.75rem 1rem;
+            margin: 1rem 0;
+            font-size: 0.95rem;
+        }
+
+        .section {
+            margin-bottom: 2rem;
+        }
+
+        .tagline {
+            font-style: italic;
+            color: #555;
+            margin-top: 0.3rem;
+        }
+
+        ul {
+            padding-left: 1.2rem;
+        }
+
+        li {
+            margin: 0.25rem 0;
+        }
+
+        .code-caption {
+            font-size: 0.9rem;
+            color: #555;
+            margin-top: -0.75rem;
+            margin-bottom: 0.75rem;
+            font-style: italic;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Deque (Monotonic Queue) in Java</h1>
+        <p class="tagline">A simulation with real examples and a simple, beginner-friendly breakdown</p>
+    </header>
+
+    <main>
+        <section class="section">
+            <h2>1. Introduction</h2>
+            <p>
+                Welcome to the magical world of <strong>Monotonic Queues</strong>, where numbers politely line up in
+                order
+                and never misbehave. If you’ve ever tried explaining technology to an elderly relative, you know the
+                importance of <strong>patience</strong>, <strong>clarity</strong>, and sometimes
+                <strong>cookies</strong>.
+            </p>
+            <p>
+                This tutorial explains the <strong>Deque-based Monotonic Queue</strong> in Java in a friendly and
+                humorous way,
+                with multiple examples and complete code. It’s designed to be understandable for beginners, yet still
+                useful
+                for coding interviews and real-world problems.
+            </p>
+        </section>
+
+        <section class="section">
+            <h2>2. What Is a Monotonic Queue? (Grandma Edition)</h2>
+            <p>
+                Imagine Grandma is baking cookies.
+            </p>
+            <p>
+                She puts cookies on a tray, but she only wants to keep the <strong>freshest, hottest cookies</strong> on
+                top.
+            </p>
+            <p>So she:</p>
+            <ul>
+                <li>adds a new cookie to the tray,</li>
+                <li>removes any older, colder cookies that are worse than the new one,</li>
+                <li>always keeps the tray organized so the <strong>best cookie is always on top</strong>.</li>
+            </ul>
+            <p>
+                That’s the basic idea of a <strong>Monotonic Queue</strong>.
+            </p>
+
+            <h3>Formal definition</h3>
+            <p>A Monotonic Queue is a data structure that:</p>
+            <ul>
+                <li>keeps elements in <strong>sorted order</strong> (either increasing or decreasing),</li>
+                <li>is usually implemented with a <code>Deque&lt;T&gt;</code> (double-ended queue),</li>
+                <li>supports operations like:
+                    <ul>
+                        <li><code>push(x)</code> &mdash; add a number while removing “worse” numbers,</li>
+                        <li><code>pop(x)</code> &mdash; remove <code>x</code> if it’s leaving the current window,</li>
+                        <li><code>max()</code> or <code>min()</code> &mdash; get the current maximum or minimum in
+                            <strong>O(1)</strong>.
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </section>
+
+        <section class="section">
+            <h2>3. Why Do We Need This?</h2>
+            <p>
+                Monotonic Queues are especially useful in <strong>sliding window</strong> problems. For example:
+            </p>
+            <p>
+                “Find the <strong>maximum</strong> in every sliding window of size <code>k</code>.”
+            </p>
+            <p>Naive approach:</p>
+            <ul>
+                <li>For each window, scan all <code>k</code> elements to find the max.</li>
+                <li>Time complexity: <strong>O(n · k)</strong>.</li>
+            </ul>
+            <p>Monotonic Queue approach:</p>
+            <ul>
+                <li>Maintain a data structure that always knows the max in the current window.</li>
+                <li>Time complexity: <strong>O(n)</strong> overall.</li>
+            </ul>
+
+            <div class="note">
+                <strong>Grandma translation:</strong> Instead of checking every cookie every time, just keep the best
+                ones on top.
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>4. The Java Implementation of a Monotonic Queue</h2>
+            <p>
+                Let’s implement a simple Monotonic Queue that keeps values in <strong>decreasing</strong> order so that
+                the <strong>maximum</strong> is always at the front.
+            </p>
+
+            <p class="code-caption">Monotonic Queue that supports push, pop, and max operations.</p>
+            <pre><code class="language-java">import java.util.Deque;
+import java.util.LinkedList;
+
+class MonotonicQueue {
+    private Deque&lt;Integer&gt; deque = new LinkedList&lt;&gt;();
+
+    // Push a new value while keeping the deque decreasing
+    public void push(int value) {
+        // Remove all smaller values from the back
+        while (!deque.isEmpty() &amp;&amp; deque.getLast() &lt; value) {
+            deque.removeLast();
+        }
+        // Add the new value at the back
+        deque.addLast(value);
+    }
+
+    // Pop the value leaving the window
+    public void pop(int value) {
+        // Only remove from front if it matches
+        if (!deque.isEmpty() &amp;&amp; deque.getFirst() == value) {
+            deque.removeFirst();
+        }
+    }
+
+    // Get the current maximum value
+    public int max() {
+        return deque.getFirst();
+    }
+}
+</code></pre>
+            <p>
+                The trick is that when you <code>push</code> a new value, you remove all values smaller than it from the
+                back.
+                They are now “useless,” because as long as this larger value stays in the window, those smaller ones can
+                never
+                become the maximum.
+            </p>
+        </section>
+
+        <section class="section">
+            <h2>5. Sliding Window Maximum Using the Monotonic Queue</h2>
+            <p>
+                Now let’s solve a classic problem:
+            </p>
+            <p>
+                Given an array <code>nums</code> and a window size <code>k</code>, return an array of the maximums in
+                each
+                sliding window.
+            </p>
+
+            <p class="code-caption">Using MonotonicQueue to compute the sliding window maximum in O(n).</p>
+            <pre><code class="language-java">public int[] maxSlidingWindow(int[] nums, int k) {
+    MonotonicQueue mq = new MonotonicQueue();
+    int n = nums.length;
+    if (n == 0 || k == 0) {
+        return new int[0];
+    }
+
+    int[] result = new int[n - k + 1];
+    int index = 0;
+
+    for (int i = 0; i &lt; n; i++) {
+        // Push the current value into the monotonic queue
+        mq.push(nums[i]);
+
+        // Once we've processed the first k elements, start recording max values
+        if (i &gt;= k - 1) {
+            // The front of the queue is the max for the current window
+            result[index++] = mq.max();
+
+            // Remove the element that's sliding out of the window
+            mq.pop(nums[i - k + 1]);
+        }
+    }
+
+    return result;
+}
+</code></pre>
+
+            <div class="note">
+                <strong>Idea:</strong> At each step, we insert the new element, record the current max
+                once we have a full window, and remove the element that’s leaving the window.
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>6. Real-World Example (Grandma-Friendly)</h2>
+            <p>
+                Let’s say Grandma is watching her favorite TV show and wants to know:
+            </p>
+            <blockquote>
+                “What was the highest volume level in every 3-minute window?”
+            </blockquote>
+            <p>Volume readings:</p>
+            <pre><code>[2, 1, 3, 5, 4, 6]</code></pre>
+            <p>Window size: <code>k = 3</code></p>
+
+            <p>The sliding windows and their maximum values:</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Window</th>
+                        <th>Values</th>
+                        <th>Max</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1–3</td>
+                        <td>2, 1, 3</td>
+                        <td>3</td>
+                    </tr>
+                    <tr>
+                        <td>2–4</td>
+                        <td>1, 3, 5</td>
+                        <td>5</td>
+                    </tr>
+                    <tr>
+                        <td>3–5</td>
+                        <td>3, 5, 4</td>
+                        <td>5</td>
+                    </tr>
+                    <tr>
+                        <td>4–6</td>
+                        <td>5, 4, 6</td>
+                        <td>6</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>So the output array is:</p>
+            <pre><code>[3, 5, 5, 6]</code></pre>
+
+            <div class="note">
+                <strong>Grandma translation:</strong> “For each group of 3 minutes, write down the loudest moment. Slide
+                forward
+                by one minute and repeat.”
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>7. Monotonic Increasing Queue (For Minimums)</h2>
+            <p>
+                Sometimes you want the <strong>minimum</strong> in a sliding window instead of the maximum. In that
+                case,
+                you can use a <strong>monotonic increasing</strong> queue.
+            </p>
+            <p>
+                The idea is the same, but when pushing a new value, you remove all <strong>larger</strong> values from
+                the back
+                instead of smaller ones.
+            </p>
+
+            <p class="code-caption">Changing the comparison to build a monotonic increasing queue.</p>
+            <pre><code class="language-java">// In a monotonic increasing queue, change the condition:
+while (!deque.isEmpty() &amp;&amp; deque.getLast() &gt; value) {
+    deque.removeLast();
+}
+// Now the front of the deque will always hold the minimum in the current window.
+</code></pre>
+
+            <p>Use cases include:</p>
+            <ul>
+                <li>Minimum value in a sliding window,</li>
+                <li>Finding local dips in stock prices,</li>
+                <li>Tracking the lowest temperature in a recent time range,</li>
+                <li>Grandma checking which day had the least arthritis pain.</li>
+            </ul>
+        </section>
+
+        <section class="section">
+            <h2>8. Humor Break: Grandma Debugging</h2>
+            <p>
+                <strong>Grandma:</strong> “Why does your queue keep removing things? That’s wasteful!”
+            </p>
+            <p>
+                <strong>You:</strong> “It’s optimizing.”
+            </p>
+            <p>
+                <strong>Grandma:</strong> “Sounds like laziness disguised as intelligence.”
+            </p>
+            <p>
+                <strong>You:</strong> “…fair.”
+            </p>
+        </section>
+
+        <section class="section">
+            <h2>9. Full Working Demo Program</h2>
+            <p>
+                Here is a complete Java program that you can copy, paste, and run. It uses the
+                <code>MonotonicQueue</code> to compute sliding window maximums.
+            </p>
+
+            <pre><code class="language-java">import java.util.Deque;
+import java.util.LinkedList;
+
+class MonotonicQueue {
+    private Deque&lt;Integer&gt; deque = new LinkedList&lt;&gt;();
+
+    public void push(int value) {
+        while (!deque.isEmpty() &amp;&amp; deque.getLast() &lt; value) {
+            deque.removeLast();
+        }
+        deque.addLast(value);
+    }
+
+    public void pop(int value) {
+        if (!deque.isEmpty() &amp;&amp; deque.getFirst() == value) {
+            deque.removeFirst();
+        }
+    }
+
+    public int max() {
+        return deque.getFirst();
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        int[] nums = {2, 1, 3, 5, 4, 6};
+        int k = 3;
+
+        Main m = new Main();
+        int[] result = m.maxSlidingWindow(nums, k);
+
+        System.out.print("Sliding window max: ");
+        for (int r : result) {
+            System.out.print(r + " ");
+        }
+    }
+
+    public int[] maxSlidingWindow(int[] nums, int k) {
+        MonotonicQueue mq = new MonotonicQueue();
+        int n = nums.length;
+        if (n == 0 || k == 0) {
+            return new int[0];
+        }
+
+        int[] result = new int[n - k + 1];
+        int index = 0;
+
+        for (int i = 0; i &lt; n; i++) {
+            mq.push(nums[i]);
+
+            if (i &gt;= k - 1) {
+                result[index++] = mq.max();
+                mq.pop(nums[i - k + 1]);
+            }
+        }
+
+        return result;
+    }
+}
+</code></pre>
+        </section>
+
+        <section class="section">
+            <h2>10. Summary</h2>
+            <ul>
+                <li>A <strong>Monotonic Queue</strong> keeps elements in sorted order as you insert them.</li>
+                <li>It’s ideal for <strong>sliding window</strong> problems that need fast max or min queries.</li>
+                <li>Typically implemented with a <code>Deque</code>, supporting <code>push</code>, <code>pop</code>, and
+                    <code>max/min</code> in O(1) amortized time.
+                </li>
+                <li>Useful for:
+                    <ul>
+                        <li>sliding window maximum/minimum,</li>
+                        <li>stock price analysis,</li>
+                        <li>temperature and sensor readings,</li>
+                        <li>and yes, even cookie freshness monitoring.</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <p>
+                From cookie trays to sliding windows, you’ve now seen how a Monotonic Queue works, why it’s useful,
+                and how to implement it in Java. Grandma would be proud.
+            </p>
+        </section>
+    </main>
+</body>
+
+</html>

@@ -1,0 +1,219 @@
+ :root {
+        --bg: #071028;
+        --card: #0b1220;
+        --accent: #6c8cff;
+        --accent-2: #4aa0ff;
+        --muted: #9aa7d6;
+        --gold: #ffd166;
+        --success: #2ecc71;
+        --danger: #ff6b6b;
+    }
+
+    * {
+        box-sizing: border-box
+    }
+
+    body {
+        margin: 0;
+        font-family: Inter, Segoe UI, Roboto, Arial;
+        background: linear-gradient(180deg, #0b319c 0%, #03060b 100%);
+        color: #e6eef8;
+    }
+
+    header {
+        padding: 18px 22px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1px solid #a34f4f0a;
+    }
+
+    header h1 {
+        margin: 0;
+        font-size: 18px
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 22px auto;
+        padding: 0 18px 80px
+    }
+
+    .grid {
+        display: grid;
+        grid-template-columns: 360px 1fr;
+        gap: 18px
+    }
+
+    .sidebar {
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
+        border-radius: 12px;
+        padding: 16px;
+        box-shadow: 0 6px 18px rgba(2, 6, 23, 0.6);
+    }
+
+    .card-title {
+        font-weight: 700;
+        color: var(--accent);
+        margin-bottom: 8px
+    }
+
+    .small {
+        font-size: 13px;
+        color: var(--muted)
+    }
+
+    label {
+        display: block;
+        font-size: 13px;
+        margin-top: 10px;
+        color: var(--muted)
+    }
+
+    input[type="text"],
+    input[type="number"],
+    textarea,
+    select {
+        width: 100%;
+        padding: 9px 10px;
+        margin-top: 6px;
+        border-radius: 8px;
+        border: 1px solid rgba(255, 255, 255, 0.04);
+        background: var(--card);
+        color: #e6eef8;
+    }
+
+    .btn {
+        display: inline-block;
+        margin-top: 12px;
+        padding: 10px 14px;
+        background: linear-gradient(90deg, var(--accent), var(--accent-2));
+        color: #071028;
+        border-radius: 10px;
+        border: none;
+        cursor: pointer;
+        font-weight: 700;
+    }
+
+    .btn.secondary {
+        background: transparent;
+        color: var(--muted);
+        border: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    .main {
+        display: flex;
+        flex-direction: column;
+        gap: 14px
+    }
+
+    .panel {
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
+        border-radius: 12px;
+        padding: 16px;
+        box-shadow: 0 6px 18px rgba(2, 6, 23, 0.6);
+    }
+
+    .chart-wrap {
+        display: flex;
+        gap: 12px;
+        align-items: flex-start;
+        flex-wrap: wrap
+    }
+
+    canvas {
+        background: transparent;
+        border-radius: 8px
+    }
+
+    .badge {
+        display: inline-block;
+        padding: 6px 10px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.03);
+        color: var(--muted);
+        font-weight: 700;
+        font-size: 13px;
+    }
+
+    .templates pre {
+        background: #071028;
+        padding: 12px;
+        border-radius: 8px;
+        overflow: auto;
+        color: #dbeafe;
+        font-size: 13px
+    }
+
+    .quiz-q {
+        font-weight: 700;
+        margin-bottom: 8px
+    }
+
+    .options {
+        display: flex;
+        flex-direction: column;
+        gap: 8px
+    }
+
+    .option {
+        padding: 10px 12px;
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.02);
+        cursor: pointer;
+        border: 1px solid rgba(255, 255, 255, 0.02)
+    }
+
+    .option:hover {
+        border-color: var(--accent)
+    }
+
+    .option.correct {
+        background: linear-gradient(90deg, rgba(46, 204, 113, 0.12), rgba(46, 204, 113, 0.06));
+        border-color: rgba(46, 204, 113, 0.3)
+    }
+
+    .option.wrong {
+        background: linear-gradient(90deg, rgba(255, 107, 107, 0.08), rgba(255, 107, 107, 0.03));
+        border-color: rgba(255, 107, 107, 0.2)
+    }
+
+    .report-area {
+        background: #071028;
+        padding: 12px;
+        border-radius: 8px;
+        color: #dbeafe;
+        font-size: 13px;
+        min-height: 80px
+    }
+
+    .practice-list {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin-top: 8px
+    }
+
+    .practice-item {
+        background: rgba(255, 255, 255, 0.02);
+        padding: 10px;
+        border-radius: 8px
+    }
+
+    footer {
+        margin-top: 18px;
+        text-align: center;
+        color: var(--muted);
+        font-size: 13px
+    }
+
+    @media (max-width:980px) {
+        .grid {
+            grid-template-columns: 1fr
+        }
+
+        .sidebar {
+            order: 2
+        }
+    }
+
